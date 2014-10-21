@@ -1,10 +1,17 @@
 #include <iostream>
 
+#include "magazyn.h"
+#include "item.h"
+#include "mediator.h"
+#include "request_parser.h"
+#include "wielka_ksiega_itemow.h"
+
 
 int main()
 {
-    std::string a = "Commited from QtCreator, yep.";
-    std::cout <<  a << std::endl;
+    std::cout <<  "Symulator magazynu wita." << std::endl;
 
-    return 256;
+    Magazyn nasz_magazyn = new Magazyn();
+
+    return 0;
 }

@@ -15,33 +15,26 @@ int main()
 {
     cout <<  "Symulator magazynu wita." << endl;
 
-    Magazyn nasz_magazyn = Magazyn(100,5);
+    Magazyn* nasz_magazyn = new Magazyn(100,3);
 
-    cout << nasz_magazyn.getPojemnosc() << endl;
-    cout << nasz_magazyn.ileStanowisk() << endl;
+    cout << "Stanowisk roboczych w magazynie: " <<  nasz_magazyn->stanowiska.size()<< endl;
 
-    nasz_magazyn.stanowiska.at(0)->zajmij();
+    Wielka_Ksiega_Itemow* baza_itemow = new Wielka_Ksiega_Itemow();
+    Request_Parser* parserek = new Request_Parser();
+    string plik_wejsciowy = "itemy.xml";
+    parserek->pobierzPlik(plik_wejsciowy);
+    cout << "Nasza zawartosc pliku wejsciowego:" << endl;
+    parserek->pokazPlik();
+    parserek->pokazNazwyItemow();
 
-    cout << nasz_magazyn.zajetosc_stanowisk().at(0) << endl;
-    cout << nasz_magazyn.zajetosc_stanowisk().at(1) << endl;
+    Mediator* mediator = new Mediator(baza_itemow, nasz_magazyn, parserek);
 
-    nasz_magazyn.stanowiska.at(0)->zwolnij();
-
-    cout << nasz_magazyn.zajetosc_stanowisk().at(0) << endl;
-    cout << nasz_magazyn.zajetosc_stanowisk().at(1) << endl;
-
-    Wielka_Ksiega_Itemow baza_itemow = Wielka_Ksiega_Itemow();
-
-    cout << baza_itemow.getItem("book")->rozmiar <<endl;
-    cout << baza_itemow.getItem("bike")->czas <<endl;
-
-    baza_itemow.addItem(new Item("szaa",6,666));
-
-    cout << baza_itemow.getItem("szaa")->czas <<endl;
-    cout << baza_itemow.getItem("szaa")->rozmiar <<endl;
-
-
-    nasz_magazyn.przyjmijItem(baza_itemow.getItem("szaa"));
+    string komunikat_mediatora;
+    while (komunikat_mediatora!="Brak dalszych itemow.")
+    {
+        komunikat_mediatora = mediator->deponujNastepnyItem();
+        cout << komunikat_mediatora << endl;
+    }
 
     return 0;
 }

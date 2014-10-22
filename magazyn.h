@@ -17,12 +17,11 @@ protected:
     void update();
     void ustawPojemnosc(int capacity);
     void ustawStanowiska(int stanowiska);
+    void przygotujPrzedsionek();
 
 
 public:
 
-    Magazyn();
-    Magazyn(int capacity);
     Magazyn(int capacity, int stanowiska);
 
     vector <Stanowisko_Magazynowe * > stanowiska;
@@ -34,7 +33,6 @@ public:
     vector <bool> zajetosc_stanowisk();
     vector <Item*> itemy;
     string przyjmijItem(Item* i);
-
 
 };
 

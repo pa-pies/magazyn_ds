@@ -6,20 +6,6 @@
 
 using namespace std;
 
-Magazyn::Magazyn()
-{
-    this->ustawPojemnosc(100);
-    this->ustawStanowiska(3);
-    this->update();
-
-}
-
-Magazyn::Magazyn(int capacity)
-{
-    this->ustawPojemnosc(capacity);
-    this->ustawStanowiska(3);
-    this->update();
-}
 
 Magazyn::Magazyn(int capacity, int stanowiska)
 {
@@ -41,10 +27,7 @@ void Magazyn::ustawStanowiska(int ile)
     {
         this->stanowiska.push_back(new Stanowisko_Magazynowe);
     }
-    std::cout << "sajz: " << this->stanowiska.size() << std::endl;
-
 }
-
 
 int Magazyn::getPojemnosc()
 {
@@ -79,8 +62,8 @@ std::vector <bool> Magazyn::zajetosc_stanowisk()
 
 string Magazyn::przyjmijItem(Item* i)
 {
-    cout << "Probujemy przyjac " << i->nazwa << endl;
-    if (i->rozmiar > this->wolne_miejsce) return "obiekt za duzy, odrzucamy";
+    cout << "Probujemy przyjac item typu: " << i->nazwa << endl;
+    if (i->rozmiar > this->wolne_miejsce) return "Obiekt za duzy, odrzucamy";
     else
     {
 
@@ -98,7 +81,23 @@ void Magazyn::update()
         this->zajetosc+=itemy.at(i)->rozmiar;
     }
     this->wolne_miejsce = this->pojemnosc - this->zajetosc;
+
+
     cout<<"Wolne miejsce: " << this->wolne_miejsce << ", przedmiotow: "<< this->itemy.size() <<endl;
+
+    if (this->wolne_miejsce == 0)
+    {
+        cout << "Brak miejsca w magazynie" << endl;
+        this->itemy.clear();
+        int s = this->stanowiska.size();
+        this->stanowiska.clear();
+        this->wolne_miejsce = this->pojemnosc;
+        for (int i=0;i<s;i++)
+        {
+            this->stanowiska.push_back(new Stanowisko_Magazynowe);
+        }
+
+    }
 }
 
 
